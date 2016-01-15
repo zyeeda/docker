@@ -1,4 +1,4 @@
 What's included!
 ================
 
-This repository includes the build infrastructure for Zyeeda Inc.
+This repository includes the docker infrastructure for Zyeeda Corporation.
