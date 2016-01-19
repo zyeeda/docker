@@ -56,7 +56,7 @@ RUN set -xe \
 	&& rm -fr demo-base javadoc \
 	&& rm jetty.tar.gz*
 
-COPY jetty_home/start.ini .
+COPY jetty_home/start.ini ./
 COPY jetty_home/modules/*.mod modules/
 
 #
