@@ -24,6 +24,9 @@ RUN \
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r jetty && useradd -r -g jetty jetty
 
+#
+# setup jetty home
+#
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH
 RUN mkdir -p "$JETTY_HOME"
@@ -53,9 +56,25 @@ RUN set -xe \
 	&& rm -fr demo-base javadoc \
 	&& rm jetty.tar.gz*
 
+COPY jetty_home/start.ini .
+COPY jetty_home/modules/*.mod modules/
+
+#
+# setup jetty base
+#
 ENV JETTY_BASE /var/lib/jetty
 RUN mkdir -p "$JETTY_BASE"
 WORKDIR $JETTY_BASE
+
+RUN mkdir "$JETTY_BASE/etc" \
+    && mkdir -p "$JETTY_BASE/lib/btm" \
+    && mkdir "$JETTY_BASE/resources" \
+    && mkdir "$JETTY_BASE/start.d" \
+    && mkdir "$JETTY_BASE/webapps"
+
+COPY jetty_base/etc/* etc/
+COPY jetty_base/lib/btm/* lib/btm/
+COPY jetty_base/resources/* resources/
 
 # Get the list of modules in the default start.ini and build new base with those modules, then add setuid
 RUN modules="$(grep -- ^--module= "$JETTY_HOME/start.ini" | cut -d= -f2 | paste -d, -s)" \
