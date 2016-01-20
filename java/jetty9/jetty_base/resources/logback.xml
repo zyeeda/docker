@@ -4,25 +4,11 @@
 
 <configuration debug="false">
 
-    <property name="applicationName" value="zyeeda-erp-1.0" />
+    <property name="applicationName" value="server" />
 
     <contextName>${applicationName}</contextName>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %logger.%M [%t] - %m%n
-            </pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/zyeeda-erp.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/zyeeda-erp_%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-
         <encoder>
             <pattern>
                 %d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %logger.%M [%t] - %m%n
@@ -43,7 +29,6 @@
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
     </root>
 
 </configuration>
