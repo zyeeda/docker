@@ -14,6 +14,13 @@ if [ "$1" = jetty.sh ]; then
 	EOWARN
 fi
 
+for f in /docker-entrypoint.d/*; do
+  case "$f" in
+    *.sh)   echo "$0: running $f"; . "$f" ;;
+  esac
+  echo
+done
+
 if ! type -- "$1" &>/dev/null; then
 	set -- java -jar "-Djava.io.tmpdir=$TMPDIR" "$JETTY_HOME/start.jar" "$@"
 fi

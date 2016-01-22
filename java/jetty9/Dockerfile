@@ -4,7 +4,7 @@ RUN apt-get update && \
   apt-get install -yq \
     ca-certificates \
     curl \
-    wget && \
+    netcat && \
   apt-get autoremove -yq && \
   apt-get clean -yq && \
   rm -rf /var/lib/apt/lists/*
@@ -87,6 +87,8 @@ ENV TMPDIR /tmp/jetty
 RUN set -xe \
 	&& mkdir -p "$JETTY_RUN" "$TMPDIR" \
 	&& chown -R jetty:jetty "$JETTY_RUN" "$TMPDIR" "$JETTY_BASE"
+
+RUN mkdir /docker-entrypoint.d
 
 COPY docker-entrypoint.bash /
 
