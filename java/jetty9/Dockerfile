@@ -3,7 +3,8 @@ FROM debian:jessie
 RUN apt-get update && \
   apt-get install -yq \
     ca-certificates \
-    curl && \
+    curl \
+    mysql-client && \
   apt-get autoremove -yq && \
   apt-get clean -yq && \
   rm -rf /var/lib/apt/lists/*
